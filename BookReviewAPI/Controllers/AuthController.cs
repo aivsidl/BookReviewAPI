@@ -22,7 +22,7 @@ namespace BookReviewAPI.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] UserLogin login)
         {
-            // Authenticate user (this is just an example)
+            
             if (login.Username == "admin" && login.Password == "password")
             {
                 var token = GenerateJwtToken();
