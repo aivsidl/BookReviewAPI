@@ -7,7 +7,7 @@ namespace BookReviewAPI.Services
     {
         IEnumerable<Book> GetAllBooks();
         Book GetBookById(int id);
-        void AddBook(Book book);
+        int AddBook(Book book);
         void UpdateBook(Book book);
         void DeleteBook(int id);
     }

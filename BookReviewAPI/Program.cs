@@ -1,4 +1,6 @@
 
+using BookReviewAPI.Services;
+
 namespace BookReviewAPI
 {
     public class Program
@@ -13,6 +15,9 @@ namespace BookReviewAPI
             
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IReviewService, ReviewService>();
 
             var app = builder.Build();
 

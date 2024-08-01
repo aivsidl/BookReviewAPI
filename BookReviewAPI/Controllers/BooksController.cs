@@ -1,4 +1,5 @@
 ﻿using BookReviewAPI.Models;
+using BookReviewAPI.Models.DTO;
 using BookReviewAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -34,10 +35,15 @@ namespace BookReviewAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Book> CreateBook(Book book)
+        public ActionResult<BookCreateDto> CreateBook(BookCreateDto book)
         {
-            _bookService.AddBook(book);
-            return CreatedAtAction(nameof(GetBook), new { id = book.Id }, book);
+            var bookEntity= new Book()
+            {
+                Title = book.Title,
+                Author = book.Author,
+            }; 
+           var bookId =  _bookService.AddBook(bookEntity);
+            return CreatedAtAction(nameof(GetBook), new { id = bookId }, bookEntity);
         }
 
         [HttpPut("{id}")]

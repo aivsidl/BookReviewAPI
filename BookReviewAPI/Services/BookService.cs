@@ -1,4 +1,5 @@
-﻿using BookReviewAPI.Models;
+﻿using BookReviewAPI.Data;
+using BookReviewAPI.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,9 +19,23 @@ namespace BookReviewAPI.Services
             return _books.FirstOrDefault(b => b.Id == id);
         }
 
-        public void AddBook(Book book)
+        public int AddBook(Book book)
         {
-            _books.Add(book);
+            
+            Book? lastBook = BookStore.BookList // .Max(fp => fp.Id);
+                .OrderByDescending(fp => fp.Id)
+                .FirstOrDefault();
+            if (lastBook != null)
+            {
+                book.Id = lastBook.Id + 1;
+               
+            }
+            else 
+            { 
+                book.Id = 1;
+            }
+            BookStore.BookList.Add(book);
+            return book.Id;
         }
 
         public void UpdateBook(Book book)
